@@ -14,7 +14,6 @@ func init() {
 }
 
 func main() {
-	// 增加一行注释
 	// 开启 ORM 调试模式
 	orm.Debug = true
 	// 自动建表
