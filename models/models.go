@@ -30,12 +30,19 @@ func InitModels() {
 	}
 
 	// 添加一个定时任务
-	newTask := toolbox.NewTask("first task", "0 */5 * * * *", firstTask)
-	toolbox.AddTask("first task", newTask)
+	task0 := toolbox.NewTask("first task", "0 */2 * * * *", firstTask)
+	toolbox.AddTask("first task", task0)
 	toolbox.StartTask()
+	task1 := toolbox.NewTask("first task", "0 */1 * * * *", sendTask)
+	toolbox.AddTask("send task", task1)
 }
 
 func firstTask() error {
-	fmt.Println("task: ", time.Now())
+	fmt.Println("task0: ", time.Now())
+	return nil
+}
+
+func sendTask() error {
+	fmt.Println("task1: ", time.Now())
 	return nil
 }
