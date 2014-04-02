@@ -17,7 +17,8 @@ const (
 var Cfg *goconfig.ConfigFile
 
 func InitModels() {
-	if com.IsFile(_CFG_PATH) {
+	if !com.IsFile(_CFG_PATH) {
+		fmt.Println("app.ini文件不存在,创建..")
 		os.Create(_CFG_PATH)
 	}
 	var err error

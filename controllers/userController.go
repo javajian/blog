@@ -7,5 +7,5 @@ type UserController struct {
 func (this *UserController) Get() {
 	this.Data["Website"] = "beego.cn"
 	this.Data["Email"] = "astaxie@gmail.com"
-	this.TplNames = "default.html"
+	this.TplNames = "home.html"
 }

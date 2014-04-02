@@ -19,8 +19,8 @@ func initialize() {
 	models.InitModels()
 
 	// Set App version and log level.
-	beego.AppName = models.Cfg.MustValue("beego", "appname")
-	beego.RunMode = models.Cfg.MustValue("beego", "runmode")
+	beego.AppName = models.Cfg.MustValue("beego", "app_name")
+	beego.RunMode = models.Cfg.MustValue("beego", "run_mode")
 
 	controllers.IsPro = beego.RunMode == "prod"
 	if controllers.IsPro {
@@ -37,10 +37,16 @@ func init() {
 }
 
 func main() {
+
 	//初始化
 	initialize()
 
 	beego.Info(beego.AppName, APP_VER)
+
+	if !controllers.IsPro {
+		beego.SetStaticPath("/static_source", "static_source")
+		beego.DirectoryIndex = true
+	}
 
 	// 开启 ORM 调试模式
 	orm.Debug = true
