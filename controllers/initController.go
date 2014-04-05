@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	CompressConfPath = "conf\\compress.json"
+	CompressConfPath = "conf/compress.json"
 )
 
 func initLocales() {
@@ -37,6 +37,7 @@ func initLocales() {
 }
 
 func settingCompress() {
+	beego.Info("加载资源文件:" + CompressConfPath)
 	setting, err := compress.LoadJsonConf(CompressConfPath, IsPro, "/")
 	if err != nil {
 		beego.Error(err)

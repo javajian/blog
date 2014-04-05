@@ -56,6 +56,7 @@
                 "Name": "app",
                 "DistFile": "app.min.css",
                 "SourceFiles": [
+                    "base.css",
                     "main.css"
                 ]
             }

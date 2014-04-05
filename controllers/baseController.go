@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"blog/models"
 	"github.com/astaxie/beego"
 	"github.com/beego/i18n"
 	"strings"
@@ -75,7 +76,7 @@ func (this *baseController) setLangVer() bool {
 
 	// 4. Default language is English.
 	if len(lang) == 0 {
-		lang = "zh-CN"
+		lang = models.Cfg.MustValue("lang", "default")
 		isNeedRedir = false
 	}
 
