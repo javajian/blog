@@ -19,8 +19,7 @@
                     "jquery-1.11.0.min.js",
                     "jquery-ui.min.js",
                     "prettify.js",
-                    "bootstrap.min.js",
-                    "html5-3.6-respond-1.1.0.min.js"
+                    "bootstrap.min.js"
                 ]
             },
             "app": {
@@ -32,7 +31,8 @@
             "ie9": {
                 "DistFile": "ie9.min.js",
                 "SourceFiles": [
-                    "html5-3.6-respond-1.1.0.min.js"
+                    "html5shiv.js",
+                    "respond.min.js"
                 ]
             }
         }
