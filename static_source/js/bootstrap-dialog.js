@@ -88,7 +88,7 @@
 						var footer = '<div class="modal-footer" style="margin:0;padding:5px 15px'+(this.options.btnsPos?(';text-align:'+this.options.btnsPos):';')+'">';
 						for(var i=0;i<this.options.btns.length;i++){
 							var o = this.options.btns[i];
-							footer += '<a href="javascript:;" style="padding:3px 10px;" class="btn btn-small'+(o.pk?' btn-primary':'')+'">'+o.text+'</a>';
+							footer += '<a href="javascript:;" style="padding:3px 10px;" class="btn btn-small'+(o.pk?' btn-info':' btn-default')+'">'+o.text+'</a>';
 						}
 						footer += '<div>';
 						modalDalog.find('.modal-body').after(footer);
@@ -119,7 +119,7 @@
 			});
 			// 拖拽
 			if(this.options.dd !== undefined && this.options.dd === true){
-				modalDalog.draggable({handler:'.modal-header',containment:'parent',cursor: "move"});
+				modalDalog.draggable({handle:'.modal-header',containment:'parent',cursor: "move"});
 			}
 
 			this.$modal.show().addClass('in');

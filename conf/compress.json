@@ -13,6 +13,7 @@
                     "jquery.extend.js",
                     "bootstrap.min.js",
                     "bootstrap-dialog.js",
+                    "bootstrap-tooltip.js",
                     "prettify.js"
                 ],
                 "SkipFiles": [
@@ -25,7 +26,7 @@
             "app": {
                 "DistFile": "app.min.js",
                 "SourceFiles": [
-                    "main.js"
+                    "index.js"
                 ]
             },
             "ie9": {
