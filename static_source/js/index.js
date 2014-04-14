@@ -10,6 +10,7 @@ function regHandler (argument) {
 	var dialog = $.myDialog({
         width:400,
         dd:true,
+        lock:true,
         title:'用户注册',
         content:'<form action="#" class="form-horizontal">'+
         			'<div class="form-group">'+
@@ -32,10 +33,14 @@ function regHandler (argument) {
         			'</div>'+
         		'</form>',
         btns:[
-        	{text:'保存',pk:true, handler:function(m){m.setTitle('再次提示');}},
+        	{text:'保存',pk:true, handler:function(m,dia){
+        		var email = $('#email',dia).val();
+        		alert(email);
+				m.close();
+        	}},
         	{text:'取消', close:true}]
       });
 	dialog.show();
-	$('#email').myTooltip({content:'从父',position:'bottom'});
+	$('#email').myTooltip({content:'从父'});
 }
 

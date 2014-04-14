@@ -34,22 +34,10 @@
 			if (this.options.width !== undefined) {
 				modalDalog.width(this.options.width);
 			}
-
-			if (this.options.height !== undefined) {
-				modalDalog.height(this.options.height);
-			}
-
-			// 显示在最中间
-			modalDalog.css({margin:0,left:($(window).width() - modalDalog.outerWidth())/2+'px',
-				top:($(window).height()-modalDalog.outerHeight())/2-100 +'px'});
-
-			if (this.options.left !== undefined) {
-				modalDalog.css({'left': this.options.left});
-			}
-
-			if (this.options.top !== undefined) {
-				modalDalog.css({'top': this.options.top});
-			}
+			// if (this.options.height !== undefined) {
+			// 	modalDalog.height(this.options.height);
+			// }
+			
 
 			if (this.options.keyboard) {
 				this.escape();
@@ -57,7 +45,7 @@
 
 			if (this.options.lock) {
 				if (!$backdrop.length) {
-					$backdrop = $('<div class="modal-backdrop fade" />').appendTo(this.options.appendTo);
+					$backdrop = $('<div class="modal-backdrop" />').appendTo(this.options.appendTo);
 				}
 				$backdrop[0].offsetWidth; // force reflow
 				$backdrop.addClass('in');
@@ -103,7 +91,7 @@
 										var callback = undefined;
 										if(o.handler !== undefined && typeof o.handler === 'function'){
 											callback = o.handler;
-											that.on('click', function(){callback(self);});
+											that.on('click', function(){callback(self,modalDalog);});
 										}
 									}
 								}
@@ -123,6 +111,16 @@
 			}
 
 			this.$modal.show().addClass('in');
+			// 显示在最中间
+			modalDalog.css({margin:0,left:($(window).width() - modalDalog.outerWidth())/2+'px',
+				top:($(window).height()-modalDalog.height())/2 +'px'});
+
+			if (this.options.left !== undefined) {
+				modalDalog.css({'left': this.options.left});
+			}
+			if (this.options.top !== undefined) {
+				modalDalog.css({'top': this.options.top});
+			}
 			return this;
 		}
 
