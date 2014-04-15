@@ -11,6 +11,7 @@
                     "jquery-1.11.0.min.js",
                     "jquery-ui.min.js",
                     "jquery.extend.js",
+                    "jquery.cookie.js",
                     "fastdom.js",
                     "bootstrap.min.js",
                     "bootstrap-dialog.js",
@@ -22,6 +23,14 @@
                     "jquery-ui.min.js",
                     "prettify.js",
                     "bootstrap.min.js"
+                ]
+            },
+            "form": {
+                "DistFile" : "lib.form.js",
+                "SourceFiles": [
+                    "jquery.form.js",
+                    "jquery.validate.js",
+                    "messages_zh.js"
                 ]
             },
             "app": {

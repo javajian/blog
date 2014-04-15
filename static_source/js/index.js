@@ -12,11 +12,11 @@ function regHandler (argument) {
         dd:true,
         lock:true,
         title:'用户注册',
-        content:'<form action="#" class="form-horizontal">'+
+        content:'<form id="regForm" action="#" class="form-horizontal">'+
         			'<div class="form-group">'+
         				'<label for="email" class="col-md-3 control-label">邮&emsp;&emsp;箱:</label>'+
     					'<div class="col-md-9">'+
-    						'<input type="email" class="form-control" id="email" placeholder="邮箱">'+
+    						'<input type="text" class="form-control" id="email" placeholder="邮箱">'+
     					'</div>'+
         			'</div>'+
         			'<div class="form-group">'+
@@ -34,13 +34,28 @@ function regHandler (argument) {
         		'</form>',
         btns:[
         	{text:'保存',pk:true, handler:function(m,dia){
-        		var email = $('#email',dia).val();
-        		alert(email);
+        		if($('#regForm').valid()){
+                    alert('save');
+                }else{
+                    alert('err')
+                }
 				m.close();
         	}},
         	{text:'取消', close:true}]
       });
 	dialog.show();
-	$('#email').myTooltip({content:'从父'});
+	// $('#email').myTooltip({content:'从父'});
+    $('#regForm').validate({
+        rules:{
+            email:{
+                required:true,
+                email:true
+            }
+        },
+        errorPlacement: function(error, element) {
+            console.info(error)
+            console.info(element)
+        },
+    });
 }
 
