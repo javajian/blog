@@ -1,3 +1,3 @@
-blog 我的博客,正在开发中 ^_^
+blog developing
 ====
 
