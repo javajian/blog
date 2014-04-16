@@ -30,6 +30,7 @@
                 "SourceFiles": [
                     "jquery.form.js",
                     "jquery.validate.js",
+                    "jquery.validate.extend.js",
                     "messages_zh.js"
                 ]
             },

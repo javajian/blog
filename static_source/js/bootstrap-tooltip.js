@@ -150,13 +150,17 @@
 		}
 
 		,hide: function() {
-			if (this.$trigger.data('originalTitle')) {
-				this.$trigger.attr('title', this.$trigger.data('originalTitle'));
+			if (typeof this.options.on_close == 'function') {
+				this.options.on_hide.call(this);
 			}
+			this.$tooltip.hide();
+		}
+
+		,close: function() {
 			if (typeof this.options.on_close == 'function') {
 				this.options.on_close.call(this);
 			}
-			this.$tooltip.hide();
+			this.$tooltip.remove();
 		}
 
 		,do_mouseenter: function() {
@@ -217,6 +221,9 @@
 			} else {
 				obj.show();
 			}
+			if(obj.options.firstShow == true){
+				obj.show();
+			}
 		});
 	};
 
@@ -239,5 +246,6 @@
 		,position: 'right'			// top,bottom,right,left,top-right.. 等等的组合
 		,autoclose: true
 		,appendTo: 'body'	// where should the tooltips be appended to (default to document.body). Added for unit tests, not really needed in real life.
+		,firstShow: false
 	};
 })(jQuery);
