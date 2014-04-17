@@ -11,6 +11,7 @@ function regHandler (argument) {
         width:400,
         dd:true,
         lock:true,
+        form:true, // 自动清除表单验证的tooltip,关闭时执行
         title:'用户注册',
         content:'<form id="regForm" action="#" method="post" class="form-horizontal">'+
         			'<div class="form-group">'+
@@ -42,23 +43,19 @@ function regHandler (argument) {
     //             }
 				// m.close();
         	}},
-        	{text:'取消', close:true}]
+        	{text:'取消', close:true}]  
       });
 	dialog.show();
 	// $('#email').myTooltip({content:'从父'});
     var validate = $('#regForm').validate({
         rules:{
-            email:{
-                required:true
-            },
-            pwd:{
-                required:true
-            }
+            email:{required:true,isEmail:true},
+            pwd:{required:true},
+            repwd:{required:true,equalTo:'#pwd'}
         },
         messages:{
-            pwd:{
-                required:'密码必须填写'
-            }
+            pwd:{required:'密码必须填写'},
+            repwd:{equalTo:'两次密码输入不一致'}
         }
     });
 }

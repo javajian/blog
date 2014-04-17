@@ -144,6 +144,9 @@
 			$(document).off('keyup.' + pluginName);
 			this.$modal.remove();
 			$('.modal-backdrop').remove();
+			if(this.options.form === true){
+				$('div.tooltip').remove();
+			}
 			if (typeof this.options.onClose === 'function') {
 				this.options.onClose.call(this, this.options);
 			}
@@ -167,7 +170,6 @@
 			});
 		}
 	});
-
 
 	$.fn[pluginName] = function(options) {
 		return this.each(function() {
@@ -198,10 +200,11 @@
 		,content: ''		// the static modal content (in case it's not loaded via ajax)
 		,appendTo: 'body'	// where should the modal be appended to (default to document.body). Added for unit tests, not really needed in real life.
 		,cache: false		// should we cache the output of the ajax calls so that next time they're shown from cache?
-		,keyboard: true
-		,btnsPos:'right'
-		,lock: false
-		,onClose:null
-		,dd:false
+		,keyboard: true // 键盘支持
+		,btnsPos:'right' // 按钮位置
+		,lock: false // 遮罩
+		,onClose:null // 关闭之前调用
+		,dd:false // 是否可以拖拽
+		,form:false // 是否包含表单
 	};
 })(jQuery);

@@ -160,6 +160,7 @@
 			if (typeof this.options.on_close == 'function') {
 				this.options.on_close.call(this);
 			}
+			this.$trigger.removeData(pluginName);
 			this.$tooltip.remove();
 		}
 
