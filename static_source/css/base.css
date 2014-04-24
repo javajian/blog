@@ -31,7 +31,7 @@ textarea,
 textarea.form-control {
   padding: 10px;
 }
-
+/*
 .navbar {
   font-size: 14px;
 }
@@ -66,7 +66,7 @@ textarea.form-control {
   display: block;
   background-color: #eee;
 }
-
+*/
 #main {
   padding-top: 51px;
 }
@@ -103,7 +103,7 @@ textarea.form-control {
   color: #ababab;
 }
 
-/* box */
+/* box 
 .box {
     background-color: #fafafa;
     border-bottom: 1px solid #e2e2e2;
@@ -144,8 +144,8 @@ textarea.form-control {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-
-/* pager */
+*/
+/* pager 
 
 .box .pagination,
 .box .pager {
@@ -155,8 +155,8 @@ textarea.form-control {
 .pager .pager-nums {
   line-height: 30px;
 }
-
-/* avatar */
+*/
+/* avatar 
 .avatar img {
   border-radius: 3px;
   width: 48px;
@@ -181,7 +181,7 @@ textarea.form-control {
   width: 16px;
   height: 16px;
 }
-
+*/
 /* breadcrumb */
 .breadcrumb {
   font-size: 14px;
@@ -200,7 +200,7 @@ textarea.form-control {
   margin: 0 5px;
 }
 
-/* btn-checked */
+/* btn-checked 
 .btn-checked,
 .btn-checked:hover,
 .btn-checked:focus {
@@ -212,8 +212,8 @@ textarea.form-control {
 .btn-checked.active {
   color: #000;
 }
-
-/* dropdown-menu */
+*/
+/* dropdown-menu 
 .dropdown-menu > li > a:focus {
   color: rgb(255, 255, 255);
   background-color: rgb(0, 131, 174);
@@ -224,13 +224,13 @@ textarea.form-control {
   background-color: rgb(0, 131, 174);
   background-image: linear-gradient(to bottom, rgb(0, 139, 184), rgb(0, 120, 159));
 }
-
+*/
 /* form help block */
 .help-block {
   margin-left: 5px;
 }
 
-/* form error block */
+/* form error block 
 .form-group .error-block {
   z-index: -1;
   display: none;
@@ -259,7 +259,7 @@ textarea.form-control {
 .error-block .btn {
   margin-top: 2px;
 }
-
+*/
 h1.underline,
 h2.underline,
 h3.underline,

@@ -59,7 +59,7 @@
                 "DistFile": "lib.min.css",
                 "SourceFiles": [
                     "bootstrap.css",
-                    "bootstrap-theme.css",
+                    "bootflat.css",
                     "prettify.css",
                     "main.css"
                 ]

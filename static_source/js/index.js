@@ -54,7 +54,6 @@ function regHandler (argument) {
             repwd:{required:true,equalTo:'#pwd'}
         },
         messages:{
-            pwd:{required:'密码必须填写'},
             repwd:{equalTo:'两次密码输入不一致'}
         }
     });

@@ -7,8 +7,8 @@
     }
 
     jQuery.validator.addMethod("isEmail", function(value, element, params) {   
-        return this.optional(element) || /^[a-zA-Z]([a-zA-Z0-9]*[-_.]?[a-zA-Z0-9]+)+@([\w-]+\.)+[a-zA-Z]{2,}$/.test(value);   
-    },"身份证格式错误!");
+        return this.optional(element) || /^([a-zA-Z0-9]*[-_.]?[a-zA-Z0-9]+)+@([\w-]+\.)+[a-zA-Z]{2,}$/.test(value);   
+    },"邮箱格式错误!");
 
     jQuery.validator.addMethod("idIdCard", function(value, element, params) {   
 		return this.optional(element) || isIdCard(value);   
@@ -26,7 +26,13 @@
         debug: true,
         errorElement: "em",
         errorPlacement: function(error, element) {
-            element.myTooltip({content:error,firstShow:true});
+            var tip =  element.myTooltip('get');
+            if(tip) {
+                element.myTooltip('setContent',error);
+            }else{
+                // 新建tip
+                element.myTooltip({content:error,firstShow:true});
+            }
             element.parents('.form-group').addClass('has-error');
         },
         success: function(label) {

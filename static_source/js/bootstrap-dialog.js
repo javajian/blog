@@ -76,7 +76,7 @@
 						var footer = '<div class="modal-footer" style="margin:0;padding:5px 15px'+(this.options.btnsPos?(';text-align:'+this.options.btnsPos):';')+'">';
 						for(var i=0;i<this.options.btns.length;i++){
 							var o = this.options.btns[i];
-							footer += '<a href="javascript:;" style="padding:3px 10px;" class="btn btn-small'+(o.pk?' btn-info':' btn-default')+'">'+o.text+'</a>';
+							footer += '<a href="javascript:;" style="padding:3px 10px;" class="btn btn-small'+(o.pk?' btn-primary':' btn-default')+'">'+o.text+'</a>';
 						}
 						footer += '<div>';
 						modalDalog.find('.modal-body').after(footer);
@@ -174,7 +174,7 @@
 	$.fn[pluginName] = function(options) {
 		return this.each(function() {
 			var obj;
-			if (!(obj = $.data(this, pluginName))) {
+			if (!(obj = $(this).data(pluginName))) {
 				var  $this = $(this)
 					,data = $this.data()
 					,opts = $.extend({}, options, data)
@@ -183,7 +183,7 @@
 					opts.remote = $this.attr('href');
 				}
 				obj = new Modal(opts);
-				$.data(this, pluginName, obj);
+				$(this).data(pluginName, obj);
 			}
 			obj.show();
 		});

@@ -186,18 +186,31 @@
 				}, this.options.delay);
 			}
 		}
+		,setContent:function(newContent){
+			return this.$tooltip.find('.tooltip-inner').html(newContent);
+		}
+		,get:function(){
+			return this.$tooltip;
+		}
 	});
 
-	$.fn[pluginName] = function(options) {
-		var  method = null
-			,first_run = false
-			;
-		if (typeof options == 'string') {
-			method = options;
+	$.fn[pluginName] = function(options,params) {
+		var  method = null ,first_run = false;
+
+		if(typeof options == 'string'){
+			var obj = $(this).data(pluginName);
+			if(obj) {
+				if(options == 'setContent') return obj[options](params);
+				else return obj[options]();
+			}	
+			else{
+				return;
+			} 
 		}
+
 		return this.each(function() {
 			var obj;
-			if (!(obj = $.data(this, pluginName))) {
+			if (!(obj = $(this).data(pluginName))) {
 				var  $this = $(this)
 					,data = $this.data()
 					,opts
@@ -209,11 +222,16 @@
 					opts = data;
 				}
 				obj = new Tooltip($this, opts);
-				$.data(this, pluginName, obj);
+				$(this).data(pluginName, obj);
 			}
+
+			if (typeof options == 'string') {
+				method = options;
+			}
+
 			if (method) {
 				obj[method]();
-			} else if (first_run) {
+			} else if(first_run) {
 				$(this).on('mouseenter.' + pluginName, function() {
 					obj.do_mouseenter();
 				}).on('mouseleave.' + pluginName, function() {
@@ -222,6 +240,7 @@
 			} else {
 				obj.show();
 			}
+
 			if(obj.options.firstShow == true){
 				obj.show();
 			}
