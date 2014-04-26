@@ -46,3 +46,11 @@ func FindAllUsers() ([]*User, error) {
 	_, err := qs.All(&users)
 	return users, err
 }
+
+func SaveUser(u *User) map[string]interface{} {
+	result := make(map[string]interface{})
+	o := orm.NewOrm()
+	o.Insert(u)
+	result["succ"] = "mysuc"
+	return result
+}

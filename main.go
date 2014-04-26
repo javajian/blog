@@ -54,7 +54,7 @@ func main() {
 	orm.RunSyncdb("default", false, true)
 
 	beego.Router("/", &controllers.MainController{})
-	beego.Router("/user/reg", &controllers.UserController{}, "post:reg")
+	beego.Router("/user/reg", &controllers.UserController{}, "post:Reg")
 
 	// Register template functions.
 	beego.AddFuncMap("i18n", i18n.Tr)

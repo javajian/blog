@@ -35,13 +35,11 @@ function regHandler (argument) {
         		'</form>',
         btns:[
         	{text:'保存',pk:true, handler:function(m,dia){
-                console.info($('#regForm').valid())
-    //     		if($('#regForm').valid()){
-    //                 alert('save');
-    //             }else{
-    //                 alert('err')
-    //             }
-				// m.close();
+                if($('#regForm').valid()) {
+                    $.post('/user/reg',$('#regForm').serialize(),function(data){
+                        console.info(data)
+                    },'json')
+                }
         	}},
         	{text:'取消', close:true}]  
       });
