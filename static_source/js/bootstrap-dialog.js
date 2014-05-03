@@ -121,6 +121,11 @@
 			if (this.options.top !== undefined) {
 				modalDalog.css({'top': this.options.top});
 			}
+
+			if (typeof this.options.onShow === 'function') {
+				this.options.onShow.call(this, this.options);
+			}
+
 			return this;
 		}
 
@@ -204,6 +209,7 @@
 		,btnsPos:'right' // 按钮位置
 		,lock: false // 遮罩
 		,onClose:null // 关闭之前调用
+		,onShow:null // 展示完
 		,dd:false // 是否可以拖拽
 		,form:false // 是否包含表单
 	};

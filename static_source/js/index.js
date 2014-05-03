@@ -41,19 +41,20 @@ function regHandler (argument) {
                     },'json')
                 }
         	}},
-        	{text:'取消', close:true}]  
+        	{text:'取消', close:true}],
+        onShow:function() {
+            var validate = $('#regForm').validate({
+                rules:{
+                    email:{required:true,isEmail:true},
+                    pwd:{required:true},
+                    repwd:{required:true,equalTo:'#pwd'}
+                },
+                messages:{
+                    repwd:{equalTo:'两次密码输入不一致'}
+                }
+            });
+        }      
       });
-	dialog.show();
-	// $('#email').myTooltip({content:'从父'});
-    var validate = $('#regForm').validate({
-        rules:{
-            email:{required:true,isEmail:true},
-            pwd:{required:true},
-            repwd:{required:true,equalTo:'#pwd'}
-        },
-        messages:{
-            repwd:{equalTo:'两次密码输入不一致'}
-        }
-    });
+    dialog.show();
 }
 
