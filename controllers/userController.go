@@ -12,6 +12,7 @@ type UserController struct {
 
 func (this *UserController) Reg() {
 	beego.Info("register controller")
+	result := make(map[string]interface{})
 
 	email := this.GetString("email")
 	pwd := this.GetString("pwd")
@@ -25,8 +26,11 @@ func (this *UserController) Reg() {
 	u.Reged = time.Now()
 	u.Uname = email
 
-	result := models.SaveUser(u)
+	models.SaveUser(u)
+
+	result["succ"] = "mysuc"
 
 	this.Data["json"] = result
+
 	this.ServeJson()
 }

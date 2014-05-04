@@ -4,9 +4,7 @@ import (
 	"blog/controllers"
 	"blog/models"
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
 	"github.com/beego/i18n"
-	_ "github.com/go-sql-driver/mysql"
 	"os"
 )
 
@@ -31,11 +29,6 @@ func initialize() {
 	controllers.InitApp()
 }
 
-func init() {
-	orm.RegisterDriver("mysql", orm.DR_MySQL)
-	orm.RegisterDataBase("default", "mysql", "root:root@/blog?charset=utf8&loc=Asia%2FShanghai")
-}
-
 func main() {
 
 	//初始化
@@ -47,11 +40,6 @@ func main() {
 		beego.SetStaticPath("/static_source", "static_source")
 		beego.DirectoryIndex = true
 	}
-
-	// 开启 ORM 调试模式
-	orm.Debug = true
-	// 自动建表
-	orm.RunSyncdb("default", false, true)
 
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/user/reg", &controllers.UserController{}, "post:Reg")
