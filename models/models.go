@@ -31,7 +31,7 @@ type User struct {
 	Reged       time.Time // 注册时间
 	Utype       int       // 用户类型0一般用户 1管理员
 	LastLogined time.Time // 最后登陆时间
-	LockStarted time.Time // 被锁定用户开始时间
+	LockStarted time.Time `xorm:"default null"` // 被锁定用户开始时间
 	LockEnded   time.Time // 结束时间
 	State       int       // 锁定or正常
 	Score       int64     // 积分

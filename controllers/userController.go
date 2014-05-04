@@ -18,7 +18,7 @@ func (this *UserController) Reg() {
 	pwd := this.GetString("pwd")
 
 	beego.Info(email)
-	beego.Info(email)
+	beego.Info(pwd)
 
 	u := new(models.User)
 	u.Email = email
