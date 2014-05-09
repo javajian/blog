@@ -26,7 +26,10 @@ func (this *UserController) Reg() {
 	u.Reged = time.Now()
 	u.Uname = email
 
-	models.SaveUser(u)
+	id, err := models.SaveUser(u)
+	if err != nil {
+
+	}
 
 	result["succ"] = "mysuc"
 
