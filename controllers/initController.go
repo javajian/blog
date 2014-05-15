@@ -3,6 +3,7 @@ package controllers
 import (
 	"blog/models"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/session"
 	"github.com/beego/compress"
 	"github.com/beego/i18n"
 	"github.com/howeyc/fsnotify"
@@ -13,7 +14,14 @@ import (
 
 var (
 	CompressConfPath = "conf/compress.json"
+	GlobalSessions   *session.Manager
 )
+
+func initSessionManager() {
+	// session管理器
+	GlobalSessions, _ = session.NewManager("memory", `{"cookieName":"sessId", "enableSetCookie,omitempty": true, "gclifetime":300, "maxLifetime": 300, "secure": false, "sessionIDHashFunc": "sha1", "sessionIDHashKey": "", "cookieLifeTime": 0, "providerConfig": ""}`)
+	go GlobalSessions.GC()
+}
 
 func initLocales() {
 	// Initialized language type list.
@@ -63,6 +71,7 @@ func initTemplates() {
 }
 
 func InitApp() {
+	initSessionManager()
 	initTemplates()
 	initLocales()
 	settingCompress()

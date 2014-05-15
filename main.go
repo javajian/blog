@@ -4,6 +4,7 @@ import (
 	"blog/controllers"
 	"blog/models"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
 	"github.com/beego/i18n"
 	"os"
 )
@@ -29,8 +30,31 @@ func initialize() {
 	controllers.InitApp()
 }
 
-func main() {
+func UrlManager(ctx *context.Context) {
+	beego.Info(ctx.Request.RequestURI)
+	uri := ctx.Request.RequestURI
+	sess := controllers.GlobalSessions.SessionStart(ctx.Output.Context.ResponseWriter, ctx.Input.Request)
+	defer sess.SessionRelease(ctx.Output.Context.ResponseWriter)
+	onlineUser := sess.Get("online_user")
+	beego.Info(onlineUser)
 
+	if "/article/add" == uri {
+		// 判断是否登录
+		ajaxSign := ctx.Input.Header("X-Requested-With")
+		if ajaxSign == "XMLHttpRequest" {
+			beego.Info("ajax request")
+			ctx.Output.Json(`{"login":"no"}`, false, false)
+		} else {
+			ctx.Redirect(302, "/user/login")
+			beego.Info("document request")
+		}
+	} else {
+		beego.Info("not need login")
+	}
+
+}
+
+func main() {
 	//初始化
 	initialize()
 
@@ -40,6 +64,8 @@ func main() {
 		beego.SetStaticPath("/static_source", "static_source")
 		beego.DirectoryIndex = true
 	}
+
+	beego.AddFilter("*", "AfterStatic", UrlManager)
 
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/user/reg", &controllers.UserController{}, "post:Reg")
