@@ -36,11 +36,10 @@ func UrlManager(ctx *context.Context) {
 	sess := controllers.GlobalSessions.SessionStart(ctx.Output.Context.ResponseWriter, ctx.Input.Request)
 	defer sess.SessionRelease(ctx.Output.Context.ResponseWriter)
 	onlineUser := sess.Get("online_user")
-	beego.Info(onlineUser)
-
+	beego.Info("url manager", onlineUser)
 	if "/article/add" == uri {
-		// 判断是否登录
 		ajaxSign := ctx.Input.Header("X-Requested-With")
+		// 判断是否登录
 		if ajaxSign == "XMLHttpRequest" {
 			beego.Info("ajax request")
 			ctx.Output.Json(`{"login":"no"}`, false, false)
@@ -68,7 +67,10 @@ func main() {
 	beego.AddFilter("*", "AfterStatic", UrlManager)
 
 	beego.Router("/", &controllers.MainController{})
+	beego.Router("/login", &controllers.UserController{}, "post:Login")
 	beego.Router("/user/reg", &controllers.UserController{}, "post:Reg")
+	beego.Router("/user/checkEmail", &controllers.UserController{}, "post:CheckEmail")
+	beego.Router("/user/logout", &controllers.UserController{}, "*:Logout")
 
 	// Register template functions.
 	beego.AddFuncMap("i18n", i18n.Tr)

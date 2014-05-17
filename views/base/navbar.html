@@ -45,17 +45,47 @@
                     </ul>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="../navbar/">个人中心</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" id="loginHandler">登录</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" id="regHandler">注册</a>
-                </li>
-            </ul>
+            {{if .hasOL}}
+                <ul class="nav navbar-nav navbar-right" id="nav-in">
+                    <li>
+                        <a href="javascript:;" id="nav-email">{{.onlineUser}}</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" id="outHandler">退出</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right hide" id="nav-noin">
+                    <li>
+                        <a href="../navbar/">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" id="loginHandler">登录</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" id="regHandler">注册</a>
+                    </li>
+                </ul>
+            {{else}}
+                <ul class="nav navbar-nav navbar-right hide" id="nav-in">
+                    <li>
+                        <a href="javascript:;" id="nav-email">{{.onlineUser}}</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" id="outHandler">退出</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" id="nav-noin">
+                    <li>
+                        <a href="../navbar/">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" id="loginHandler">登录</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" id="regHandler">注册</a>
+                    </li>
+                </ul>
+            {{end}}
         </div>
     </div>
 </div>

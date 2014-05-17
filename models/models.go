@@ -16,7 +16,7 @@ import (
 type User struct {
 	Id          int64     // 主键
 	Uname       string    `xorm:"VARCHAR(30) unique"` // 用户名
-	Pwd         string    `xorm:"VARCHAR(30)"`        // 密码
+	Pwd         string    `xorm:"VARCHAR(50)"`        // 密码
 	Mobile      string    `xorm:"VARCHAR(11)"`        //手机号
 	Email       string    `xorm:"index"`              // 邮箱
 	Real        string    `xorm:"VARCHAR(20)"`        // 真实姓名
@@ -151,7 +151,19 @@ func FindAllUsers() []*User {
 	return users
 }
 
+func FindUserByEmail(email string) (user *User, has bool, err error) {
+	user = new(User)
+	has, err = x.Where("email = ?", email).Get(user)
+	return
+}
+
 func SaveUser(u *User) (int64, error) {
 	id, err := x.Insert(u)
 	return id, err
+}
+
+func CheckEmail(email string) (int64, error) {
+	user := new(User)
+	total, err := x.Where("email = ?", email).Count(user)
+	return total, err
 }

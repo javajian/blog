@@ -31,12 +31,27 @@ func (this *baseController) Prepare() {
 	this.Data["IsPro"] = IsPro
 
 	this.Data["PageStartTime"] = time.Now()
+	// check session exists
+	this.existsSess()
 
 	// Redirect to make URL clean.
 	if this.setLangVer() {
 		i := strings.Index(this.Ctx.Request.RequestURI, "?")
 		this.Redirect(this.Ctx.Request.RequestURI[:i], 302)
 		return
+	}
+}
+
+func (this *baseController) existsSess() {
+	sess := GlobalSessions.SessionStart(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
+	defer sess.SessionRelease(this.Ctx.Output.Context.ResponseWriter)
+	onlineUser := sess.Get("online_user_email")
+	beego.Trace("prepare:", onlineUser)
+	this.Data["onlineUser"] = onlineUser
+	if onlineUser != nil {
+		this.Data["hasOL"] = true
+	} else {
+		this.Data["hasOL"] = false
 	}
 }
 

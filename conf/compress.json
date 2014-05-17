@@ -16,13 +16,16 @@
                     "bootstrap.min.js",
                     "bootstrap-dialog.js",
                     "bootstrap-tooltip.js",
+                    "messenger.min.js",
+                    "messenger-theme-flat.js",
                     "prettify.js"
                 ],
                 "SkipFiles": [
                     "jquery-1.11.0.min.js",
                     "jquery-ui.min.js",
                     "prettify.js",
-                    "bootstrap.min.js"
+                    "bootstrap.min.js",
+                    "messenger.min.js"
                 ]
             },
             "form": {
@@ -61,7 +64,9 @@
                     "bootstrap.css",
                     "bootflat.css",
                     "prettify.css",
-                    "main.css"
+                    "main.css",
+                    "messenger.css",
+                    "messenger-theme-flat.css"
                 ]
             },
             "app": {
