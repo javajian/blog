@@ -8,9 +8,126 @@
 {{define "body"}}
 	 <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                个人博客
-	        </div>
+            <div class="col-md-3">            
+            	<div class="form-search search-only mt30">
+                  <i class="search-icon glyphicon glyphicon-search"></i>
+                  <input type="text" class="form-control search-query">
+                </div>
+                <div class="about-me">
+         	    <h4>作者简介</h4>
+	               <p>
+			        <a href="javascript:;"><img class="pull-left head" src="/static/img/head.jpg"></a>
+	                Lorem ipsum dolor sit, consectetuer adipiscing. Donec libero. Suspendisse bibendum.
+				    Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu
+				    posuere nunc justo tempus leo suspendisse bibendum. <a href="index.html">Learn more...</a>
+				    </p>
+
+	            </div>
+	            <h4>{{i18n .Lang "home.recentPost"}}</h4>
+	            <ul class="list-sidebar">
+	                <li><i class="glyphicon glyphicon-pencil"></i> <a href="single.html">Post#1</a></li>
+	                <li><i class="glyphicon glyphicon-pencil"></i> <a href="#">Post#2</a></li>
+	                <li><i class="glyphicon glyphicon-pencil"></i> <a href="#">Post#3</a></li>
+	            </ul>
+	            <h4>{{i18n .Lang "home.recentComments"}}</h4>
+	            <ul class="list-sidebar">
+	                <li><i class="glyphicon glyphicon-comment"></i> Admin on <a href="#">Post#1</a></li>
+	                <li><i class="glyphicon glyphicon-comment"></i> <a href="#">John Doe</a> on <a href="#">Post#2</a></li>
+	                <li><i class="glyphicon glyphicon-comment"></i> Admin on <a href="#">Post#3</a></li>
+	            </ul>
+	            <h4>Archives</h4>
+	            <ul class="list-sidebar">
+	                <li><i class="icon-file"></i> <a href="#">July 2012</a></li>
+	                <li><i class="icon-file"></i> <a href="#">April 2012</a></li>
+	                <li><i class="icon-file"></i> <a href="#">March 2012</a></li>
+	                <li><i class="icon-file"></i> <a href="#">February 2012</a></li>
+	                <li><i class="icon-file"></i> <a href="#">January 2012</a></li>
+	                <li><i class="icon-file"></i> <a href="#">December 2011</a></li>
+	            </ul>
+	            <h4>Categories</h4>
+	            <ul class="list-sidebar">
+	                <li><i class="icon-list-alt"></i> <a href="#">Nature</a></li>
+	                <li><i class="icon-list-alt"></i> <a href="#">Photography</a></li>
+	                <li><i class="icon-list-alt"></i> <a href="#">Design</a></li>
+	                <li><i class="icon-list-alt"></i> <a href="#">Un Categories</a></li>
+	            </ul>
+	            <h4>Tags</h4>
+	            <p class="post-tags"><a href="#"><span class="label label-success">Green</span></a> <a href="#"><span class="label label-success">plant</span></a> 
+	            <a href="#"><span class="label label-success">growth</span></a> <a href="#"><span class="label label-success">property</span></a> 
+	            <a href="#"><span class="label label-success">kitchen</span></a> <a href="#"><span class="label label-success">indoor</span></a>
+	            <a href="#"></a><a href="#"><span class="label label-success">Beach</span></a> <a href="#"><span class="label label-success">landscape</span></a></p>
+            </div> <!-- end col-md-3 -->
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-10 mt15">
+                      <div class="post-contents">
+                        <div class="post-content-title">
+                            <h2 class="post-title"><a href="single.html">Post#1</a></h2>
+                            <p class="post-content-meta">
+                                <span class="post-tags"><a href="#"><span class="label label-success">Green</span></a> <a href="#"><span class="label label-success">plant</span></a> <a href="#"><span class="label label-success">growth</span></a></span>
+                                <span class="post-author"> // <i class="icon-user"></i> Admin</span>
+                                <span class="post-date"> // <i class="icon-calendar"></i> July 16th, 2012 at 4:49 pm</span>
+                                <span class="post-comment-count"> // <i class="icon-comment"></i> 3 Comments</span>
+                            </p>
+                        </div>
+                        <p><img src="img/img-post1.jpg"></p>
+                        <p>放到水立方的撒浪费的撒浪费就sfjsd爱疯就身份的教科书 sdlf sdlj fdsfsdsjklfdsjkldjlkdsjklfjdks范德萨范德萨发生的范德萨发生的房顶上房顶上发大水了空间链接 了数据库的零售价了 </p>
+                        <p><a href="single.html" class="btn btn-success">Read more »</a></p>
+                      </div>
+                      <div class="post-contents">
+                        <div class="post-content-title">
+                            <h2 class="post-title"><a href="#">Post#2</a></h2>
+                            <p class="post-content-meta">
+                                <span class="post-tags"><a href="#"><span class="label label-success">property</span></a> <a href="#"><span class="label label-success">kitchen</span></a> <a href="#"><span class="label label-success">indoor</span></a></span>
+                                <span class="post-author"> // <i class="icon-user"></i> Admin</span>
+                                <span class="post-date"> // <i class="icon-calendar"></i> July 18th, 2012 at 3:49 pm</span>
+                                <span class="post-comment-count"> // <i class="icon-comment"></i> No Comments</span>
+                            </p>
+                        </div>
+                        <p><img src="img/post2.jpg"></p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus congue pellentesque tincidunt. 
+                        Vivamus a porttitor felis. Phasellus tortor nunc, pulvinar quis vehicula eu, vestibulum non urna. 
+                        Nam nec enim urna, a congue nisi. Suspendisse et urna nisl. 
+                        Suspendisse quis tortor non orci fermentum vehicula vel in justo. 
+                        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+                        Praesent eu ipsum in est...</p>
+                        <p><a href="#" class="btn btn-success">Read more »</a></p>
+                      </div>
+                      <div class="post-contents">
+                        <div class="post-content-title">
+                            <h2 class="post-title"><a href="#">Post#3</a></h2>
+                            <p class="post-content-meta">
+                                <span class="post-tags"><a href="#"></a><a href="#"><span class="label label-success">Beach</span></a> <a href="#"><span class="label label-success">landscape</span></a></span>
+                                <span class="post-author"> // <i class="icon-user"></i> Admin</span>
+                                <span class="post-date"> // <i class="icon-calendar"></i> July 22th, 2012 at 5:49 pm</span>
+                                <span class="post-comment-count"> // <i class="icon-comment"></i> No Comments</span>
+                            </p>
+                        </div>
+                        <p><img src="img/post3.jpg"></p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus congue pellentesque tincidunt. 
+                        Vivamus a porttitor felis. Phasellus tortor nunc, pulvinar quis vehicula eu, vestibulum non urna. 
+                        Nam nec enim urna, a congue nisi. Suspendisse et urna nisl. 
+                        Suspendisse quis tortor non orci fermentum vehicula vel in justo. 
+                        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+                        Praesent eu ipsum in est...</p>
+                        <p><a href="#" class="btn btn-success">Read more »</a></p>
+                      </div>
+                      
+                      <div class="pagination">
+                            <ul>
+                              <li><a href="#">← First</a></li>
+                              <li class="disabled"><a href="#" title="Go to previous page">«</a></li>
+                              <li class="active"><a href="#">1</a></li>
+                              <li><a href="#">2</a></li>
+                              <li><a href="#">3</a></li>
+                              <li><a href="#">4</a></li>
+                              <li><a href="#" title="Go to next page">»</a></li>
+                              <li><a href="#">Last →</a></li>
+                            </ul>
+                      </div>
+                    </div>
+                </div>   <!-- end row -->             
+            </div><!-- end col-md-9 -->
         </div>
     </div>
 {{end}}

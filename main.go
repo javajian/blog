@@ -71,12 +71,18 @@ func main() {
 	beego.Router("/about", &controllers.MainController{}, "*:About")
 	beego.Router("/contact", &controllers.MainController{}, "*:Contact")
 	beego.Router("/login", &controllers.UserController{}, "post:Login")
-	beego.Router("/user/reg", &controllers.UserController{}, "post:Reg")
-	beego.Router("/user/checkEmail", &controllers.UserController{}, "post:CheckEmail")
-	beego.Router("/user/logout", &controllers.UserController{}, "*:Logout")
+	uns := beego.NewNamespace("/user").
+		Router("/user/reg", &controllers.UserController{}, "post:Reg").
+		Router("/user/checkEmail", &controllers.UserController{}, "post:CheckEmail").
+		Router("/user/logout", &controllers.UserController{}, "*:Logout")
+
+	// beego.Router("/user/reg", &controllers.UserController{}, "post:Reg")
+	// beego.Router("/user/checkEmail", &controllers.UserController{}, "post:CheckEmail")
+	// beego.Router("/user/logout", &controllers.UserController{}, "*:Logout")
 
 	// Register template functions.
 	beego.AddFuncMap("i18n", i18n.Tr)
 
+	beego.AddNamespace(uns)
 	beego.Run()
 }

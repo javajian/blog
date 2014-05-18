@@ -23,10 +23,21 @@ h6,
   font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Helvetica Neue",Helvetica,"Lucida Grande","Hiragino Sans GB","Microsoft YaHei", \5fae\8f6f\96c5\9ed1,"WenQuanYi Micro Hei",sans-serif;
 }
 
+.list-sidebar{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.list-sidebar li{
+    text-align:left;
+    padding-bottom: 5px;
+    padding-top:5px;
+    border-bottom: 1px solid #ccc;
+}
+
 label {
   cursor: pointer;
 }
-
 textarea,
 textarea.form-control {
   padding: 10px;
@@ -315,4 +326,74 @@ a.color-link:hover,
 /* dropdown login */
 #dropdown-login {
   width: 280px;
+}
+
+h4{font-size: 14px;}
+
+.mt10{
+  margin-top: 10px;
+}
+.mt15{
+  margin-top: 15px;
+}
+.mt20{
+  margin-top: 20px;
+}
+.mt30{
+  margin-top: 30px;
+}
+
+/* BLOG */
+
+.post-contents{
+    text-align:left;
+    border-bottom:1px solid #ccc;
+    margin-bottom:10px;
+    padding-bottom:10px;
+}
+
+.post-content-title{
+    margin-bottom:10px;
+}
+
+.post-content-meta{
+    
+}
+
+.post-title{
+    font-size:18px;
+    line-height: 30px;
+    margin-bottom:0px;
+    margin-top: 10px;
+}
+
+.post-content-meta.post-tags{
+    font-size:12px;
+}
+
+.post-author{
+    font-size:14px;
+}
+
+.post-date{
+    font-size:14px;
+}
+
+.post-comment-count{
+    font-size:14px;
+}
+
+/* head */
+.head{
+    box-shadow: none;
+    margin: 0 10px 0px 0;
+    padding: 10px;
+    width: 80px;
+    height: 80px;
+}
+img.head{
+    background: none repeat scroll 0 0 #F3F4F5;
+    border: 1px solid #DEDFE0;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
