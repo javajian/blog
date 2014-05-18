@@ -13,7 +13,16 @@ $(document).ready(function(){
 	$('#loginHandler').on('click',loginHandler); // login
 	$('#regHandler').on('click',regHandler); // register
     $('#outHandler').on('click',outHandler);
+    
+    // change locale and reload page
+    $(document).on('click', '.lang-changed', function(){
+        var $e = $(this);
+        var lang = $e.data('lang');
+        $.cookie('lang', lang, {path: '/', expires: 365});
+        window.location.reload();
+    });
 });
+
 
 function loginHandler(){
     var dialog = $.myDialog({

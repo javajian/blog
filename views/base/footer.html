@@ -7,13 +7,13 @@
                         <button type="button" class="btn btn-default btn-md dropdown-toggle" data-toggle="dropdown">{{i18n .Lang "current_lang"}}{{i18n .Lang .Lang}} <i class="caret"></i></button>
                         <ul class="dropdown-menu">
                             {{range .RestLangs}}
-                                <li><a href="javascript::" data-lang="{{.Lang}}" class="lang-changed">{{i18n $.Lang .Name}}</a></li>
+                                <li><a href="javascript:;" data-lang="{{.Lang}}" class="lang-changed">{{i18n $.Lang .Name}}</a></li>
                             {{end}}
                         </ul>
                     </div>
                 </div>
                 <p>
-                    {{i18n .Lang "copyright"}} © 2012-2014 Beego {{i18n .Lang "app_license" | str2html}}
+                    {{i18n .Lang "copyright"}} © 2012-2014 javajian_blog
                 </p>
             </div>
         </div>

@@ -66,7 +66,10 @@ func main() {
 
 	beego.AddFilter("*", "AfterStatic", UrlManager)
 
-	beego.Router("/", &controllers.MainController{})
+	beego.Router("/", &controllers.MainController{}, "*:Index")
+	beego.Router("/home", &controllers.MainController{}, "*:Home")
+	beego.Router("/about", &controllers.MainController{}, "*:About")
+	beego.Router("/contact", &controllers.MainController{}, "*:Contact")
 	beego.Router("/login", &controllers.UserController{}, "post:Login")
 	beego.Router("/user/reg", &controllers.UserController{}, "post:Reg")
 	beego.Router("/user/checkEmail", &controllers.UserController{}, "post:CheckEmail")

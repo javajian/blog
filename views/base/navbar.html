@@ -7,22 +7,26 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">{{i18n .Lang "home"}}</a>
+            {{if .Index}}
+                <a class="navbar-brand" style="color:white;" href="#">{{i18n .Lang "home"}}</a>
+            {{else}}
+                <a class="navbar-brand" href="/">{{i18n .Lang "home"}}</a>
+            {{end}}
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
-                    <a href="#">我的博客</a>
+                <li {{if .Home}}class="active"{{end}}>
+                    <a href="/home">{{i18n .Lang "myblog"}}</a>
                 </li>
-                <li>
-                    <a href="#about">关于</a>
+                <li {{if .About}}class="active"{{end}}>
+                    <a href="/about">{{i18n .Lang "about"}}</a>
                 </li>
-                <li>
-                    <a href="#contact">联系我</a>
+                <li {{if .Contact}}class="active"{{end}}>
+                    <a href="/contact">{{i18n .Lang "contact"}}</a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        分类 <b class="caret"></b>
+                        {{i18n .Lang "categories"}} <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
@@ -51,18 +55,15 @@
                         <a href="javascript:;" id="nav-email">{{.onlineUser}}</a>
                     </li>
                     <li>
-                        <a href="javascript:;" id="outHandler">退出</a>
+                        <a href="javascript:;" id="outHandler">{{i18n .Lang "logout"}}</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right hide" id="nav-noin">
                     <li>
-                        <a href="../navbar/">个人中心</a>
+                        <a href="javascript:;" id="loginHandler">{{i18n .Lang "login"}}</a>
                     </li>
                     <li>
-                        <a href="javascript:;" id="loginHandler">登录</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" id="regHandler">注册</a>
+                        <a href="javascript:;" id="regHandler">{{i18n .Lang "register"}}</a>
                     </li>
                 </ul>
             {{else}}
@@ -71,18 +72,15 @@
                         <a href="javascript:;" id="nav-email">{{.onlineUser}}</a>
                     </li>
                     <li>
-                        <a href="javascript:;" id="outHandler">退出</a>
+                        <a href="javascript:;" id="outHandler">{{i18n .Lang "logout"}}</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" id="nav-noin">
                     <li>
-                        <a href="../navbar/">个人中心</a>
+                        <a href="javascript:;" id="loginHandler">{{i18n .Lang "login"}}</a>
                     </li>
                     <li>
-                        <a href="javascript:;" id="loginHandler">登录</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" id="regHandler">注册</a>
+                        <a href="javascript:;" id="regHandler">{{i18n .Lang "register"}}</a>
                     </li>
                 </ul>
             {{end}}
