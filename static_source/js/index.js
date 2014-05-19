@@ -13,7 +13,7 @@ $(document).ready(function(){
 	$('#loginHandler').on('click',loginHandler); // login
 	$('#regHandler').on('click',regHandler); // register
     $('#outHandler').on('click',outHandler);
-    
+    // $('#postBlog').on('click',postBlogHandler);
     // change locale and reload page
     $(document).on('click', '.lang-changed', function(){
         var $e = $(this);
@@ -22,7 +22,6 @@ $(document).ready(function(){
         window.location.reload();
     });
 });
-
 
 function loginHandler(){
     var dialog = $.myDialog({
@@ -136,4 +135,8 @@ function outHandler(){
     $('#nav-noin').removeClass('hide');
     Messenger().post({ message: '成功退出!', type: 'info', hideAfter: 3, showCloseButton: true });
     $.post('/user/logout')
+}
+
+function postBlogHandler(){
+    alert('发表博客')
 }

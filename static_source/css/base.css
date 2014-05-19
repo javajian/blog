@@ -330,18 +330,25 @@ a.color-link:hover,
 
 h4{font-size: 14px;}
 
-.mt10{
-  margin-top: 10px;
-}
-.mt15{
-  margin-top: 15px;
-}
-.mt20{
-  margin-top: 20px;
-}
-.mt30{
-  margin-top: 30px;
-}
+.mt10{margin-top: 10px;}
+.mt15{margin-top: 15px;}
+.mt20{margin-top: 20px;}
+.mt30{margin-top: 30px;}
+
+.mr10{margin-right: 10px;}
+.mr15{margin-right: 15px;}
+.mr20{margin-right: 20px;}
+.mr30{margin-right: 30px;}
+
+.mb10{margin-bottom: 10px;}
+.mb15{margin-bottom: 15px;}
+.mb20{margin-bottom: 20px;}
+.mb30{margin-bottom: 30px;}
+
+.ml10{margin-left: 10px;}
+.ml15{margin-left: 15px;}
+.ml20{margin-left: 20px;}
+.ml30{margin-left: 30px;}
 
 /* BLOG */
 
@@ -392,6 +399,19 @@ h4{font-size: 14px;}
     height: 80px;
 }
 img.head{
+    background: none repeat scroll 0 0 #F3F4F5;
+    border: 1px solid #DEDFE0;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.navhead{
+    box-shadow: none;
+    margin: -5px 6px 0px 0;
+    padding: 0px;
+    width: 30px;
+    height: 30px;
+}
+img.navhead{
     background: none repeat scroll 0 0 #F3F4F5;
     border: 1px solid #DEDFE0;
     border-radius: 3px;

@@ -8,9 +8,9 @@
                 <span class="icon-bar"></span>
             </button>
             {{if .Index}}
-                <a class="navbar-brand" style="color:white;" href="#">{{i18n .Lang "home"}}</a>
+            <a class="navbar-brand" style="color:white;" href="javascript:;">{{i18n .Lang "home"}}</a>
             {{else}}
-                <a class="navbar-brand" href="/">{{i18n .Lang "home"}}</a>
+            <a class="navbar-brand" href="/">{{i18n .Lang "home"}}</a>
             {{end}}
         </div>
         <div class="navbar-collapse collapse">
@@ -25,64 +25,129 @@
                     <a href="/contact">{{i18n .Lang "contact"}}</a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                         {{i18n .Lang "categories"}} <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">java</a>
+                            <a href="javascript:;">java</a>
                         </li>
                         <li>
-                            <a href="#">javascript</a>
+                            <a href="javascript:;">javascript</a>
                         </li>
                         <li>
-                            <a href="#">spring framework</a>
+                            <a href="javascript:;">spring framework</a>
                         </li>
                         <li class="divider"></li>
                         <li class="dropdown-header">go</li>
                         <li>
-                            <a href="#">go 基础</a>
+                            <a href="javascript:;">go 基础</a>
                         </li>
                         <li>
-                            <a href="#">go web</a>
+                            <a href="javascript:;">go web</a>
                         </li>
                     </ul>
                 </li>
             </ul>
             {{if .hasOL}}
-                <ul class="nav navbar-nav navbar-right" id="nav-in">
-                    <li>
-                        <a href="javascript:;" id="nav-email">{{.onlineUser}}</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" id="outHandler">{{i18n .Lang "logout"}}</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right hide" id="nav-noin">
-                    <li>
-                        <a href="javascript:;" id="loginHandler">{{i18n .Lang "login"}}</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" id="regHandler">{{i18n .Lang "register"}}</a>
-                    </li>
-                </ul>
+            <ul class="nav navbar-nav navbar-right" id="nav-in">
+                <li style="width:200px;padding:8px 0 0;">
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">{{i18n .Lang "home.search"}}</button>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                        <img class="pull-left navhead" src="/static/img/head.jpg"> <em id="nav-email">{{.onlineUser}}</em>
+                        &nbsp;
+                        <span class="badge">42</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="javascript:;">我的博客</a>
+                        </li>
+                        <li>
+                            <a href="/blog/posting" id="postBlog">发表博客</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <span class="badge pull-right">42</span> <em>消息</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="outHandler">{{i18n .Lang "logout"}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right hide" id="nav-noin">
+                <li style="width:200px;padding:8px 0 0;">
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">{{i18n .Lang "home.search"}}</button>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:;" id="loginHandler">{{i18n .Lang "login"}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;" id="regHandler">{{i18n .Lang "register"}}</a>
+                </li>
+            </ul>
             {{else}}
-                <ul class="nav navbar-nav navbar-right hide" id="nav-in">
-                    <li>
-                        <a href="javascript:;" id="nav-email">{{.onlineUser}}</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" id="outHandler">{{i18n .Lang "logout"}}</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right" id="nav-noin">
-                    <li>
-                        <a href="javascript:;" id="loginHandler">{{i18n .Lang "login"}}</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" id="regHandler">{{i18n .Lang "register"}}</a>
-                    </li>
-                </ul>
+            <ul class="nav navbar-nav navbar-right hide" id="nav-in">
+                <li style="width:200px;padding:8px 0 0;">
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">{{i18n .Lang "home.search"}}</button>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                        <img class="pull-left navhead" src="/static/img/head.jpg">
+                        <em id="nav-email">{{.onlineUser}}</em>
+                        &nbsp;
+                        <span class="badge">42</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="javascript:;">我的博客</a>
+                        </li>
+                        <li>
+                            <a href="/blog/posting" id="postBlog">发表博客</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">消息</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="outHandler">{{i18n .Lang "logout"}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="nav-noin">
+                <li style="width:200px;padding:8px 0 0;">
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">{{i18n .Lang "home.search"}}</button>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:;" id="loginHandler">{{i18n .Lang "login"}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;" id="regHandler">{{i18n .Lang "register"}}</a>
+                </li>
+            </ul>
             {{end}}
         </div>
     </div>
