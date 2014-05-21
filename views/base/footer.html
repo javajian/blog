@@ -20,3 +20,8 @@
     </div>
 </footer>
 {{compress_js "lib"}}
+{{compress_js "form"}}
+{{if eq .Lang "zh-CN"}}
+<script type="text/javascript" src="/static/js/messages_zh.js"></script>
+{{end}}
+{{compress_js "app"}}

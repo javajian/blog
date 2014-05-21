@@ -4,6 +4,12 @@ type MainController struct {
 	baseController
 }
 
+func (this *MainController) Login() {
+
+	this.Data["Login"] = true
+	this.TplNames = "login.html"
+}
+
 func (this *MainController) Index() {
 
 	this.Data["Index"] = true

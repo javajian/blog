@@ -37,14 +37,15 @@ func UrlManager(ctx *context.Context) {
 	defer sess.SessionRelease(ctx.Output.Context.ResponseWriter)
 	onlineUser := sess.Get("online_user")
 	beego.Info("url manager", onlineUser)
-	if "/article/add" == uri {
+	// if "/blog/posting" == uri || "/blog/post" == uri {
+	if "/blog/post" == uri {
 		ajaxSign := ctx.Input.Header("X-Requested-With")
 		// 判断是否登录
 		if ajaxSign == "XMLHttpRequest" {
 			beego.Info("ajax request")
 			ctx.Output.Json(`{"login":"no"}`, false, false)
 		} else {
-			ctx.Redirect(302, "/user/login")
+			ctx.Redirect(302, "/login")
 			beego.Info("document request")
 		}
 	} else {
@@ -70,7 +71,8 @@ func main() {
 	beego.Router("/home", &controllers.MainController{}, "*:Home")
 	beego.Router("/about", &controllers.MainController{}, "*:About")
 	beego.Router("/contact", &controllers.MainController{}, "*:Contact")
-	beego.Router("/login", &controllers.UserController{}, "post:Login")
+	beego.Router("/login", &controllers.MainController{}, "*:Login")
+	beego.Router("/doLogin", &controllers.UserController{}, "post:Login")
 	uns := beego.NewNamespace("/user").
 		Router("/reg", &controllers.UserController{}, "post:Reg").
 		Router("/checkEmail", &controllers.UserController{}, "post:CheckEmail").

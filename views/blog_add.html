@@ -4,18 +4,37 @@
 <meta name="keywords" content="博客 交流 IT 进步 简单">
 <title>个人博客</title>
 {{end}}
-{{define "head"}}{{end}}
+{{define "head"}}
+<link rel="stylesheet" type="text/css" href="/static/umeditor/themes/default/css/umeditor.css">
+{{end}}
 {{define "body"}}
 	 <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                添加博客页面
-                {{.hasOL}}
+            <div class="col-md-12" id="blog_add_area">
+                {{if .hasOL}}
+                {{else}}
+                    <p id="noLogin" class="mt20">
+                        您还没有登录,登录后发表博客!
+                        <a href="javascript:;" id="blog_add_login">快速登录</a>&nbsp;|&nbsp;<a href="javascript:;" id="blog_add_reg">注册</a>
+                    </p>
+                {{end}}
+                <!-- 加载编辑器的容器 -->
+                <div id="container" name="content" style="height:300px;">
+                    这里写你的初始化内容123
+                </div>
+                
 	        </div>
         </div>
     </div>
 {{end}}
 {{define "script"}}
-	{{compress_js "form"}}
-	{{compress_js "app"}}
+    <script type="text/javascript" src="/static/umeditor/umeditor.config.js"></script>
+    <script type="text/javascript" src="/static/umeditor/umeditor.js"></script>
+    {{if eq .Lang "zh-CN"}}
+        <script type="text/javascript" src="/static/umeditor/lang/zh-cn/zh-cn.js"></script>
+    {{end}}
+    {{if eq .Lang "en-US"}}
+        <script type="text/javascript" src="/static/umeditor/lang/en/en.js"></script>
+    {{end}}
+    {{compress_js "blogadd"}}
 {{end}}

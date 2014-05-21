@@ -33,8 +33,7 @@
                 "SourceFiles": [
                     "jquery.form.js",
                     "jquery.validate.js",
-                    "jquery.validate.extend.js",
-                    "messages_zh.js"
+                    "jquery.validate.extend.js"
                 ]
             },
             "app": {
@@ -48,6 +47,12 @@
                 "SourceFiles": [
                     "html5shiv.js",
                     "respond.min.js"
+                ]
+            },
+            "blogadd":{
+                "DistFile": "blog.add.min.js",
+                "SourceFiles": [
+                    "blog.add.js"
                 ]
             }
         }
