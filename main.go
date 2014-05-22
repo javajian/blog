@@ -39,9 +39,8 @@ func UrlManager(ctx *context.Context) {
 	beego.Info("url manager", onlineUser)
 	// if "/blog/posting" == uri || "/blog/post" == uri {
 	if "/blog/post" == uri {
-		ajaxSign := ctx.Input.Header("X-Requested-With")
 		// 判断是否登录
-		if ajaxSign == "XMLHttpRequest" {
+		if ctx.Input.IsAjax() {
 			beego.Info("ajax request")
 			ctx.Output.Json(`{"login":"no"}`, false, false)
 		} else {
