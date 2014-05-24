@@ -97,7 +97,6 @@
             }
         },
         callback: function (editor, $w, url, state) {
-
             if (state == "SUCCESS") {
                 //显示图片计数+1
                 Upload.showCount++;

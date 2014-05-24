@@ -47,11 +47,11 @@ func (this *baseController) existsSess() {
 	defer sess.SessionRelease(this.Ctx.Output.Context.ResponseWriter)
 	onlineUser := sess.Get("online_user_email")
 	beego.Trace("prepare:", onlineUser)
-	this.Data["onlineUser"] = onlineUser
+	this.Data["OnlineUser"] = onlineUser
 	if onlineUser != nil {
-		this.Data["hasOL"] = true
+		this.Data["HasOL"] = true
 	} else {
-		this.Data["hasOL"] = false
+		this.Data["HasOL"] = false
 	}
 }
 

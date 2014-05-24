@@ -59,6 +59,7 @@ func main() {
 
 	beego.Info(beego.AppName, APP_VER)
 
+	beego.SetStaticPath("/upfile", "upfile")
 	if !controllers.IsPro {
 		beego.SetStaticPath("/static_source", "static_source")
 		beego.DirectoryIndex = true
@@ -72,6 +73,7 @@ func main() {
 	beego.Router("/contact", &controllers.MainController{}, "*:Contact")
 	beego.Router("/login", &controllers.MainController{}, "*:Login")
 	beego.Router("/doLogin", &controllers.UserController{}, "post:Login")
+	beego.Router("/upload", &controllers.UploadController{}, "*:Upload")
 	uns := beego.NewNamespace("/user").
 		Router("/reg", &controllers.UserController{}, "post:Reg").
 		Router("/checkEmail", &controllers.UserController{}, "post:CheckEmail").

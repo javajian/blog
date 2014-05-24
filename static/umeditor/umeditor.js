@@ -3300,7 +3300,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
             fullscreen: false,
             readonly: false,
             zIndex: 999,
-            enterTag: 'p',
+            enterTag: 'br',
             lang: 'zh-cn',
             langPath: me.options.UMEDITOR_HOME_URL + 'lang/',
             theme: 'default',
@@ -3777,6 +3777,37 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
             }
             //给文本或者inline节点套p标签
             if (me.options.enterTag == 'p') {
+
+                var child = this.body.firstChild, tmpNode;
+                if (!child || child.nodeType == 1 &&
+                    (dtd.$cdata[child.tagName] || isCdataDiv(child) ||
+                        domUtils.isCustomeNode(child)
+                        )
+                    && child === this.body.lastChild) {
+                    this.body.innerHTML = '<p>' + (browser.ie ? '&nbsp;' : '<br/>') + '</p>' + this.body.innerHTML;
+
+                } else {
+                    var p = me.document.createElement('p');
+                    while (child) {
+                        while (child && (child.nodeType == 3 || child.nodeType == 1 && dtd.p[child.tagName] && !dtd.$cdata[child.tagName])) {
+                            tmpNode = child.nextSibling;
+                            p.appendChild(child);
+                            child = tmpNode;
+                        }
+                        if (p.firstChild) {
+                            if (!child) {
+                                me.body.appendChild(p);
+                                break;
+                            } else {
+                                child.parentNode.insertBefore(p, child);
+                                p = me.document.createElement('p');
+                            }
+                        }
+                        child = child.nextSibling;
+                    }
+                }
+            }
+            if (me.options.enterTag == 'br') {
 
                 var child = this.body.firstChild, tmpNode;
                 if (!child || child.nodeType == 1 &&
@@ -7127,6 +7158,60 @@ UM.plugins['enterkey'] = function() {
 
                 }
 
+            } else{
+                 evt.preventDefault ? evt.preventDefault() : ( evt.returnValue = false);
+
+                if (!range.collapsed) {
+                    range.deleteContents();
+                    start = range.startContainer;
+                    if (start.nodeType == 1 && (start = start.childNodes[range.startOffset])) {
+                        while (start.nodeType == 1) {
+                            if (dtd.$empty[start.tagName]) {
+                                range.setStartBefore(start).setCursor();
+                                if (me.undoManger) {
+                                    me.undoManger.save();
+                                }
+                                return false;
+                            }
+                            if (!start.firstChild) {
+                                var br = range.document.createElement('br');
+                                start.appendChild(br);
+                                range.setStart(start, 0).setCursor();
+                                if (me.undoManger) {
+                                    me.undoManger.save();
+                                }
+                                return false;
+                            }
+                            start = start.firstChild;
+                        }
+                        if (start === range.startContainer.childNodes[range.startOffset]) {
+                            br = range.document.createElement('br');
+                            range.insertNode(br).setCursor();
+
+                        } else {
+                            range.setStart(start, 0).setCursor();
+                        }
+
+
+                    } else {
+                        br = range.document.createElement('br');
+                        range.insertNode(br).setStartAfter(br).setCursor();
+                    }
+
+
+                } else {
+                    br = range.document.createElement('br');
+                    range.insertNode(br);
+                    var parent = br.parentNode;
+                    if (parent.lastChild === br) {
+                        br.parentNode.insertBefore(br.cloneNode(true), br);
+                        range.setStartBefore(br);
+                    } else {
+                        range.setStartAfter(br);
+                    }
+                    range.setCursor();
+
+                }
             }
 
         }
@@ -9957,7 +10042,7 @@ UM.registerUI('bold italic redo undo underline strikethrough superscript subscri
 
             this.saveSataus();
 
-            this.setDocumentStatus();
+            // this.setDocumentStatus();
 
             this.resize();
 
@@ -10022,7 +10107,8 @@ UM.registerUI('bold italic redo undo underline strikethrough superscript subscri
             $.IE6 && editorBody.style.setExpression( 'height', null );
 
             bound = this.getBound();
-
+            bound.top = $('#topNav').height();
+            
             $( editor.container ).css( {
                 width: width + 'px',
                 height: height + 'px',

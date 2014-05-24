@@ -50,6 +50,10 @@ $(document).ready(function(){
         $.cookie('lang', lang, {path: '/', expires: 365});
         window.location.reload();
     });
+    $('#main').css('padding-top',$('#topNav').height()+'px');
+    $(window).on('resize',function(){
+        $('#main').css('padding-top',$('#topNav').height()+'px');
+    });
 });
 
 function loginHandler(callback){
@@ -63,13 +67,13 @@ function loginHandler(callback){
                     '<div class="form-group">'+
                         '<label for="email" class="col-md-3 control-label">'+i18n[lan].email+':</label>'+
                         '<div class="col-md-9">'+
-                            '<input type="text" class="form-control" name="email" id="email" placeholder="'+i18n[lan].email+'">'+
+                            '<input type="text" value="admin@qq.com" class="form-control" name="email" id="email" placeholder="'+i18n[lan].email+'">'+
                         '</div>'+
                     '</div>'+
                     '<div class="form-group">'+
                         '<label for="pwd" class="col-md-3 control-label">'+i18n[lan].pwd+':</label>'+
                         '<div class="col-md-9">'+
-                            '<input type="password" class="form-control" name="pwd" id="pwd" placeholder="'+i18n[lan].pwd+'">'+
+                            '<input type="password" value="123" class="form-control" name="pwd" id="pwd" placeholder="'+i18n[lan].pwd+'">'+
                         '</div>'+
                     '</div>'+
                 '</form>',
