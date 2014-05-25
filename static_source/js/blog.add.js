@@ -35,12 +35,33 @@ $(function () {
             enableForm();
     	});
     });
+
+    $('#submitBtn').on('click',doSubmit)
     var umeditors = $('.edui-container');
     // resize umeditor change width
     $(window).on('resize',function(){
         umeditors.css('width',umeditors.parent().width()+'px');
     });
 });
+
+function doSubmit(){
+    var params = $('#postForm').serialize();
+    var content = UM.getEditor('container').getContentTxt();
+    $.ajax({
+        url:'/blog/post',
+        type:'post',
+        data:params+'&contentText='+content,
+        success:function(res,textStatus,jqXHR){
+            if(res.login === 'no'){
+                // not logged 
+                showTip({msg:'您还未登陆'});
+            }
+        },
+        error:function(xhr,textStatus,et){
+            errorFun(xhr);
+        }
+    });
+}
 
 function disableForm(){
     $('#title').prop('disabled',true);

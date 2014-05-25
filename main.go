@@ -42,7 +42,8 @@ func UrlManager(ctx *context.Context) {
 		// 判断是否登录
 		if ctx.Input.IsAjax() {
 			beego.Info("ajax request")
-			ctx.Output.Json(`{"login":"no"}`, false, false)
+			ctx.Output.Header("Content-Type", "application/json")
+			ctx.Output.Body([]byte(`{"login":"no"}`))
 		} else {
 			ctx.Redirect(302, "/login")
 			beego.Info("document request")

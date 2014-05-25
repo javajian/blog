@@ -15,7 +15,11 @@ var i18n = {
         saveBtn:'保存',
         vremote:'邮箱已经存在,找回密码?',
         vequalTo:'两次密码输入不一致',
-        logout:"成功退出!"
+        logout:"成功退出!",
+        err404:'请求的路径不存在!',
+        err500:'服务器出错,请稍后再试!',
+        errtimeout:'服务器超时,请稍后再试!',
+        notLogin:'您还没有登录,登录后发表博客!'
 
     },
     en:{
@@ -29,8 +33,33 @@ var i18n = {
         saveBtn:'Save',
         vremote:'exists! please change another, or find the password?',
         vequalTo:'Entered passwords differ',
-        logout:"logout succeed"
+        logout:"logout succeed",
+        err404:'The requested resource does not exist!',
+        err500:'Internal Server Error,Please try again later!',
+        errtimeout:'Request timed out,Please try again later!',
+        notLogin:'You are not logged, After Logging, you can post you blog!'
     }
+};
+
+var showTip = function(options){
+    var defaults = {
+        msg:'消息',
+        type:'error',
+        time:3,
+        showCloseButton:true,
+        id:''
+    };
+    var opts = $.extend({},defaults,options);
+    Messenger().post({id:opts.id,message: opts.msg, type: opts.type, hideAfter: opts.time, showCloseButton: opts.showCloseButton });
+};
+
+var errorFun = function(xhr) {
+    if(xhr.status == 404) 
+        showTip({msg:i18n[lan].err404});
+    if(xhr.status == 500)
+        showTip({msg:i18n[lan].err500});
+    if(xhr.status == -1)
+        showTip({msg:i18n[lan].errtimeout});
 };
 
 function initOutIn(id, email){
@@ -83,13 +112,13 @@ function loginHandler(callback){
                     $.post('/doLogin',$('#itemForm').serialize(),function(data){
                         if(data.succ == 'succ'){
                             m.close();
-                            Messenger().post({ message: '登录成功,您可以发表和评论博客.', type: 'info', hideAfter: 3, id: data.id, showCloseButton: true });
+                            showTip({msg:'登录成功,您可以发表和评论博客.',type:'info',id:data.id})
                             initOutIn(data.id, data.email)
                             if(callback && typeof callback == 'function') {
                                 callback(data);
                             }
                         }else{
-                            Messenger().post({ message: data[data.succ], type: 'error', hideAfter: 3, showCloseButton: true });
+                            showTip({msg:data[data.succ]});
                         }
                     },'json')
                 }
@@ -141,12 +170,12 @@ function regHandler (callback) {
                         if(data.succ == 'succ'){
                             m.close();
                             initOutIn(data.id, data.email)
-                            Messenger().post({ message: '注册成功,您可以发表和评论博客.', type: 'info', hideAfter: 3, id: data.id, showCloseButton: true });
+                            showTip({msg:'注册成功,您可以发表和评论博客.',type:'info',id:data.id})
                             if(callback && typeof callback == 'function') {
                                 callback(data);
                             }
                         }else{
-                            Messenger().post({ message: '注册失败,请稍后再试.', type: 'error', hideAfter: 3, showCloseButton: true });
+                            showTip({msg:'注册失败,请稍后再试.'});
                         }
                     },'json')
                 }
@@ -172,6 +201,6 @@ function regHandler (callback) {
 function outHandler(){
     $('#nav-in').addClass('hide');
     $('#nav-noin').removeClass('hide');
-    Messenger().post({ message: i18n[lan].logout, type: 'info', hideAfter: 3, showCloseButton: true });
+    showTip({msg:i18n[lan].logout,type:'info'});
     $.post('/user/logout')
 }
