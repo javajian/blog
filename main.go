@@ -5,6 +5,7 @@ import (
 	"blog/models"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
+	_ "github.com/astaxie/beego/session/redis"
 	"github.com/beego/i18n"
 	"os"
 )
@@ -27,17 +28,26 @@ func initialize() {
 		os.Mkdir("./log", os.ModePerm)
 		beego.BeeLogger.SetLogger("file", `{"filename": "log/log"}`)
 	}
+
+	beego.SessionOn = true
+	beego.SessionProvider = "redis"
+	beego.SessionSavePath = "127.0.0.1:6379"
+	beego.SessionGCMaxLifetime = 300
+	beego.SessionName = "blogSid"
+
 	controllers.InitApp()
 }
 
 func UrlManager(ctx *context.Context) {
 	beego.Info(ctx.Request.RequestURI)
 	uri := ctx.Request.RequestURI
-	sess := controllers.GlobalSessions.SessionStart(ctx.Output.Context.ResponseWriter, ctx.Input.Request)
-	defer sess.SessionRelease(ctx.Output.Context.ResponseWriter)
-	onlineUser := sess.Get("online_user")
+	// sess := controllers.GlobalSessions.SessionStart(ctx.Output.Context.ResponseWriter, ctx.Input.Request)
+	// defer sess.SessionRelease(ctx.Output.Context.ResponseWriter)
+	// onlineUser := sess.Get("online_user")
+	onlineUser := ctx.Input.Session("online_user")
 	beego.Info("url manager", onlineUser)
 	// if "/blog/posting" == uri || "/blog/post" == uri {
+
 	if "/blog/post" == uri {
 		// 判断是否登录
 		if ctx.Input.IsAjax() {
@@ -81,7 +91,8 @@ func main() {
 		Router("/logout", &controllers.UserController{}, "*:Logout")
 
 	bns := beego.NewNamespace("/blog").
-		Router("/posting", &controllers.BlogController{}, "*:Posting")
+		Router("/posting", &controllers.BlogController{}, "*:Posting").
+		Router("/post", &controllers.BlogController{}, "*:Post")
 
 	// beego.Router("/user/reg", &controllers.UserController{}, "post:Reg")
 	// beego.Router("/user/checkEmail", &controllers.UserController{}, "post:CheckEmail")

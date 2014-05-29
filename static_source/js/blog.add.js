@@ -3,6 +3,7 @@ $(function () {
     $("#category").select2();
     $("#tag").select2({
         tags:[""],
+        tokenSeparators: [" "],
         maximumInputLength: 12,
         maximumSelectionSize:4
     });
@@ -47,14 +48,15 @@ $(function () {
 function doSubmit(){
     var params = $('#postForm').serialize();
     var content = UM.getEditor('container').getContentTxt();
+    var tag = $("#tag").select2("val");
     $.ajax({
         url:'/blog/post',
         type:'post',
-        data:params+'&contentText='+content,
+        data:params+'&contentText='+content+'&tag='+tag,
         success:function(res,textStatus,jqXHR){
             if(res.login === 'no'){
                 // not logged 
-                showTip({msg:'您还未登陆'});
+                showTip({msg:i18n[lan].notLogin});
             }
         },
         error:function(xhr,textStatus,et){

@@ -43,9 +43,10 @@ func (this *baseController) Prepare() {
 }
 
 func (this *baseController) existsSess() {
-	sess := GlobalSessions.SessionStart(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
-	defer sess.SessionRelease(this.Ctx.Output.Context.ResponseWriter)
-	onlineUser := sess.Get("online_user_email")
+	// sess := GlobalSessions.SessionStart(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
+	// defer sess.SessionRelease(this.Ctx.Output.Context.ResponseWriter)
+	// onlineUser := sess.Get("online_user_email")
+	onlineUser := this.GetSession("online_user_email")
 	beego.Trace("prepare:", onlineUser)
 	this.Data["OnlineUser"] = onlineUser
 	if onlineUser != nil {

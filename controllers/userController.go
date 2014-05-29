@@ -13,7 +13,17 @@ type UserController struct {
 }
 
 func (this *UserController) Logout() {
-	GlobalSessions.SessionDestroy(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
+	// GlobalSessions.SessionDestroy(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
+	// 销毁session
+	// this.DelSession("name")
+	// this.DestroySession()
+	// sid := this.CruSession.SessionID()
+	// beego.Info(sid)
+	// this.DelSession(sid)
+	// this.DestroySession()
+	// this.CruSession
+	// this.existsSess()
+	beego.GlobalSessions.SessionDestroy(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
 	this.Ctx.Output.Body([]byte("ok"))
 }
 
@@ -56,11 +66,8 @@ func (this *UserController) Login() {
 				result["succ"] = "err"
 				result["err"] = "用户或密码不正确!"
 			} else {
-				sess := GlobalSessions.SessionStart(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
-				defer sess.SessionRelease(this.Ctx.Output.Context.ResponseWriter)
-
-				sess.Set("online_user", "u_"+strconv.FormatInt(user.Id, 10))
-				sess.Set("online_user_email", email)
+				this.SetSession("online_user", "u_"+strconv.FormatInt(user.Id, 10))
+				this.SetSession("online_user_email", email)
 
 				result["id"] = user.Pwd
 				result["email"] = email
@@ -100,11 +107,8 @@ func (this *UserController) Reg() {
 		result["id"] = u.Pwd
 		result["email"] = email
 	}
-	sess := GlobalSessions.SessionStart(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
-	defer sess.SessionRelease(this.Ctx.Output.Context.ResponseWriter)
-
-	sess.Set("online_user", "u_"+strconv.FormatInt(id, 10))
-	sess.Set("online_user_email", email)
+	this.SetSession("online_user", "u_"+strconv.FormatInt(id, 10))
+	this.SetSession("online_user_email", email)
 
 	this.Data["json"] = result
 	this.ServeJson()
