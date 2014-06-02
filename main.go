@@ -41,22 +41,20 @@ func initialize() {
 func UrlManager(ctx *context.Context) {
 	beego.Info(ctx.Request.RequestURI)
 	uri := ctx.Request.RequestURI
-	// sess := controllers.GlobalSessions.SessionStart(ctx.Output.Context.ResponseWriter, ctx.Input.Request)
-	// defer sess.SessionRelease(ctx.Output.Context.ResponseWriter)
-	// onlineUser := sess.Get("online_user")
 	onlineUser := ctx.Input.Session("online_user")
 	beego.Info("url manager", onlineUser)
-	// if "/blog/posting" == uri || "/blog/post" == uri {
 
 	if "/blog/post" == uri {
-		// 判断是否登录
-		if ctx.Input.IsAjax() {
-			beego.Info("ajax request")
-			ctx.Output.Header("Content-Type", "application/json")
-			ctx.Output.Body([]byte(`{"login":"no"}`))
-		} else {
-			ctx.Redirect(302, "/login")
-			beego.Info("document request")
+		if onlineUser == nil {
+			// 判断是否登录
+			if ctx.Input.IsAjax() {
+				beego.Info("ajax request")
+				ctx.Output.Header("Content-Type", "application/json")
+				ctx.Output.Body([]byte(`{"succ":"succ",login":"no"}`))
+			} else {
+				ctx.Redirect(302, "/login")
+				beego.Info("document request")
+			}
 		}
 	} else {
 		beego.Info("not need login")
@@ -85,22 +83,25 @@ func main() {
 	beego.Router("/login", &controllers.MainController{}, "*:Login")
 	beego.Router("/doLogin", &controllers.UserController{}, "post:Login")
 	beego.Router("/upload", &controllers.UploadController{}, "*:Upload")
-	uns := beego.NewNamespace("/user").
-		Router("/reg", &controllers.UserController{}, "post:Reg").
-		Router("/checkEmail", &controllers.UserController{}, "post:CheckEmail").
-		Router("/logout", &controllers.UserController{}, "*:Logout")
+	// uns := beego.NewNamespace("/user").
+	// 	Router("/reg", &controllers.UserController{}, "post:Reg").
+	// 	Router("/checkEmail", &controllers.UserController{}, "post:CheckEmail").
+	// 	Router("/logout", &controllers.UserController{}, "*:Logout")
 
-	bns := beego.NewNamespace("/blog").
-		Router("/posting", &controllers.BlogController{}, "*:Posting").
-		Router("/post", &controllers.BlogController{}, "*:Post")
+	// bns := beego.NewNamespace("/blog").
+	// 	Router("/posting", &controllers.BlogController{}, "*:Posting").
+	// 	Router("/post", &controllers.BlogController{}, "*:Post")
 
-	// beego.Router("/user/reg", &controllers.UserController{}, "post:Reg")
-	// beego.Router("/user/checkEmail", &controllers.UserController{}, "post:CheckEmail")
-	// beego.Router("/user/logout", &controllers.UserController{}, "*:Logout")
+	beego.Router("/user/reg", &controllers.UserController{}, "post:Reg")
+	beego.Router("/user/checkEmail", &controllers.UserController{}, "post:CheckEmail")
+	beego.Router("/user/logout", &controllers.UserController{}, "*:Logout")
+
+	beego.Router("/blog/posting", &controllers.BlogController{}, "*:Posting")
+	beego.Router("/blog/post", &controllers.BlogController{}, "*:Post")
 
 	// Register template functions.
 	beego.AddFuncMap("i18n", i18n.Tr)
 
-	beego.AddNamespace(uns, bns)
+	// beego.AddNamespace(uns, bns)
 	beego.Run()
 }

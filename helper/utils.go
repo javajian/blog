@@ -834,3 +834,9 @@ func Exist(filename string) bool {
 	_, err := os.Stat(filename)
 	return err == nil || os.IsExist(err)
 }
+
+func FormatSessUid(uid interface{}) (id int64, err error) {
+	s := strings.Replace(fmt.Sprintf("%s", uid), "u_", "", -1)
+	id, err = strconv.ParseInt(s, 0, 64)
+	return
+}

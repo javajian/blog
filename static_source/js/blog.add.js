@@ -54,9 +54,15 @@ function doSubmit(){
         type:'post',
         data:params+'&contentText='+content+'&tag='+tag,
         success:function(res,textStatus,jqXHR){
-            if(res.login === 'no'){
-                // not logged 
-                showTip({msg:i18n[lan].notLogin});
+            if(res.succ == 'succ') {
+                showTip({msg:res.msg,type:'info'})
+            } else {
+                if(res.login === 'no'){
+                    // not logged 
+                    showTip({msg:i18n[lan].notLogin});
+                } else {
+                    showTip({msg:res.msg})
+                }
             }
         },
         error:function(xhr,textStatus,et){

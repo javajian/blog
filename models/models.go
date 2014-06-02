@@ -1,6 +1,7 @@
 package models
 
 import (
+	"blog/observer"
 	"fmt"
 	"github.com/Unknwon/com"
 	"github.com/Unknwon/goconfig"
@@ -30,9 +31,9 @@ type User struct {
 	Place       string    `xorm:"VARCHAR(255)"` // 注册位置
 	Reged       time.Time // 注册时间
 	Utype       int       // 用户类型0一般用户 1管理员
-	LastLogined time.Time // 最后登陆时间
-	LockStarted time.Time `xorm:"default null"` // 被锁定用户开始时间
-	LockEnded   time.Time // 结束时间
+	LastLogined time.Time `xorm:"'lastLogined' default null"` // 最后登陆时间
+	LockStarted time.Time `xorm:"'lockStarted' default null"` // 被锁定用户开始时间
+	LockEnded   time.Time `xorm:"'lockEnded' default null"`   // 结束时间
 	State       int       // 锁定or正常
 	Score       int64     // 积分
 	Lv          int       // 级别
@@ -50,18 +51,43 @@ type Blog struct {
 	Attachment string    `xorm:"VARCHAR(300)"` // 附件
 	Views      int       //浏览量
 	Replys     int       //回复量,评论数
-	State      int       //状态:0正常 1发表 2禁止发表 3删除
+	State      int       //状态:0正常发表 1禁止发表(冻结) 2删除
+	CanComment int       `xorm:"'canComment'"` // 是否可以回复 0 正常 1不能
 	Tag        string    `xorm:"VARCHAR(100)"` // 标签 spring web java 等
-	Channel    int64     // 所属栏目
+	ChannelId  int64     `xorm:"'channelId'"`  // 所属栏目
+	CategoryId int64     `xorm:"'categoryId'"`
+}
+
+/* 类别表 */
+type Category struct {
+	Id      int64
+	Name    string
+	Created time.Time
+}
+
+/* 用户类别表,用户发表什么样的类别的文章,就给用户增加一个类别,当用户登录时,按照类别获取相关的文章 */
+type UserCategory struct {
+	Id         int64
+	Uid        int64 `xorm:"'uid'"`
+	CategoryId int64 `xorm:"'categoryId'"`
 }
 
 /* 评论和回复 */
 type Comment struct {
 	Id      int64     //主键
-	Content string    //内容
+	Content string    `xorm:"VARCHAR(300)"` //内容
 	Created time.Time //创建时间
 	Uid     int64     //创建人
-	Blog    int64     //评论的博客
+	BlogId  int64     `xorm:"'blogId'"` //评论的博客
+	Pid     int64     // 针对评论的回复
+	Level   int       // 回复的层级,比如超过10次就不让回复了
+}
+
+type Tag struct {
+	Id      int64
+	Name    string `xorm:"VARCHAR(20)"`
+	Uid     int64
+	Created time.Time
 }
 
 /* 频道 */
@@ -72,6 +98,10 @@ type Channel struct {
 	Name    string    // 栏目名称
 	Show    int       //展示位置 0首页 1..
 	Created time.Time //创建时间
+}
+
+func (uc *UserCategory) TableName() string {
+	return "userCategory"
 }
 
 const (
@@ -108,7 +138,7 @@ func setEngine() {
 // InitDb initializes the database.
 func initDb() {
 	setEngine()
-	x.Sync(new(User), new(Blog))
+	x.Sync(new(User), new(Blog), new(Category), new(UserCategory), new(Comment), new(Tag))
 }
 
 func InitModels() {
@@ -127,6 +157,7 @@ func InitModels() {
 
 	// 初始化xorm引擎
 	initDb()
+	initObserver()
 	// 添加一个定时任务
 	// task0 := toolbox.NewTask("first task", "0 */2 * * * *", firstTask)
 	// toolbox.AddTask("first task", task0)
@@ -166,4 +197,28 @@ func CheckEmail(email string) (int64, error) {
 	user := new(User)
 	total, err := x.Where("email = ?", email).Count(user)
 	return total, err
+}
+
+func SaveBlog(b *Blog) (id int64, err error) {
+	session := x.NewSession()
+	defer session.Close()
+	err = session.Begin()
+	id, err = session.Insert(b)
+	if err != nil {
+		beego.Error(err)
+		session.Rollback()
+		return
+	}
+
+	params := make(map[string]interface{})
+	b.Id = id
+	params["blog"] = b
+	params["session"] = session
+	dispatcher.DispatchEvent(observer.CreateEvent("saveBlog", params))
+	err = session.Commit()
+	if err != nil {
+		beego.Error(err)
+		return
+	}
+	return
 }

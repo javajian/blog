@@ -13,17 +13,11 @@ type UserController struct {
 }
 
 func (this *UserController) Logout() {
-	// GlobalSessions.SessionDestroy(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
 	// 销毁session
-	// this.DelSession("name")
-	// this.DestroySession()
-	// sid := this.CruSession.SessionID()
-	// beego.Info(sid)
-	// this.DelSession(sid)
-	// this.DestroySession()
-	// this.CruSession
-	// this.existsSess()
-	beego.GlobalSessions.SessionDestroy(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
+	sid := this.CruSession.SessionID()
+	beego.Info("logout:", sid)
+	this.DestroySession()
+	// beego.GlobalSessions.SessionDestroy(this.Ctx.Output.Context.ResponseWriter, this.Ctx.Input.Request)
 	this.Ctx.Output.Body([]byte("ok"))
 }
 
